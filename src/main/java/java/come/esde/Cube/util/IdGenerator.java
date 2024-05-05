@@ -1,4 +1,4 @@
-package edu.pattern.shapes.util;
+package java.come.esde.Cube.util;
 
 public class IdGenerator {
     private static int currentId;

@@ -1,4 +1,4 @@
-package edu.pattern.shapes.observer;
+package java.come.esde.Cube.observer;
 
 public interface Observable {
     void attach();
