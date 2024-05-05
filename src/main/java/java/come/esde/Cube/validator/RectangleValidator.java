@@ -14,12 +14,13 @@ public class RectangleValidator {
     private static final Logger logger = LogManager.getLogger();
     public boolean isValid(Double[] params){
         boolean valid = true;
+        RectangleServiceImpl service = new RectangleServiceImpl();
         Rectangle rectangle = new Rectangle(
                 new Point(params[0],params[1]),
                         new Point(params[2],params[3]),
                                 new Point(params[4],params[5]),
                                         new Point(params[6],params[7]));
-        RectangleState currentState = RectangleServiceImpl.State(rectangle);
+        RectangleState currentState = service.state(rectangle);
         if (currentState == RectangleState.INVALID) {
             valid = false;
             logger.error("Invalid triangle data: " + Arrays.toString(params));
