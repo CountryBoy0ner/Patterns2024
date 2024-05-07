@@ -1,62 +1,60 @@
 package com.esde.rectangles.model.entity;
 
 import com.esde.rectangles.model.Shape;
-import com.esde.rectangles.service.impl.PointServiceImpl;
+import com.esde.rectangles.observer.Observable;
+import com.esde.rectangles.observer.RectangleObserver;
+import com.esde.rectangles.observer.impl.RectangleObserverImpl;
+
 import java.util.Objects;
 
-public class Rectangle extends Shape {
+public class Rectangle extends Shape implements Observable {
 
-    private Point PointA;
-    private Point PointB;
-    private Point PointC;
-    private Point PointD;
-    private RectangleType type = RectangleType.UNKNOWN;// todo
-    private RectangleState state = RectangleState.INVALID; // TODO
-    private  double side = 0.0;
-    private  double weight = 0.0;
 
+    private Point pointA;
+    private Point pointB;
+    private Point pointC;
+    private Point pointD;
+    private RectangleType type = RectangleType.UNKNOWN;
+    private RectangleState state = RectangleState.INVALID;
+    private RectangleObserver observer = new RectangleObserverImpl();
+
+    public Rectangle() {}
     public Rectangle(Point pointA,
                      Point pointB,
                      Point pointC,
                      Point pointD) {
-        this.PointA = pointA;
-        this.PointB = pointB;
-        this.PointC = pointC;
-        this.PointD = pointD;
-        this.type = RectangleType.type(new Rectangle(pointA, pointB, pointC, pointD));
-        this.state =RectangleState.state(new Rectangle(pointA, pointB, pointC, pointD));
-        this.side = new PointServiceImpl().calculateDistance(pointA, pointB);
-        this.weight = new PointServiceImpl().calculateDistance(pointB, pointC);
+        this.pointA = pointA;
+        this.pointB = pointB;
+        this.pointC = pointC;
+        this.pointD = pointD;
+        this.type = RectangleType.type(this);
+        this.state =RectangleState.state(this);
     }
 
-    public Rectangle() {}
+
     public Rectangle(Double[] param) {
-        this.PointA = new Point(param[0], param[1]);
-        this.PointB = new Point(param[2], param[3]);
-        this.PointC = new Point(param[4], param[5]);
-        this.PointD = new Point(param[6], param[7]);
-        this.type = RectangleType.type(new Rectangle(PointA, PointB, PointC, PointD));
-        this.state =RectangleState.state(new Rectangle(PointA, PointB, PointC, PointD));
-        this.side = new PointServiceImpl().calculateDistance(PointA, PointB);
-        this.weight = new PointServiceImpl().calculateDistance(PointB, PointC);
+        this.pointA = new Point(param[0], param[1]);
+        this.pointB = new Point(param[2], param[3]);
+        this.pointC = new Point(param[4], param[5]);
+        this.pointD = new Point(param[6], param[7]);
+        this.type = RectangleType.type(this);
+        this.state =RectangleState.state(this);
     }
-
-
 
     public Point getPointA() {
-        return PointA;
+        return pointA;
     }
 
     public Point getPointB() {
-        return PointB;
+        return pointB;
     }
 
     public Point getPointC() {
-        return PointC;
+        return pointC;
     }
 
     public Point getPointD() {
-        return PointD;
+        return pointD;
     }
 
     public RectangleType getType() {
@@ -67,67 +65,71 @@ public class Rectangle extends Shape {
     }
 
     public void setPointA(Point pointA) {
-        PointA = pointA;
+        this.pointA = pointA;
+        notifyObservers();
     }
 
     public void setPointB(Point pointB) {
-        PointB = pointB;
+        this.pointB = pointB;
+        notifyObservers();
     }
 
     public void setPointC(Point pointC) {
-        PointC = pointC;
+        this.pointC = pointC;
+        notifyObservers();
     }
 
     public void setPointD(Point pointD) {
-        PointD = pointD;
+        this.pointD = pointD;
+        notifyObservers();
     }
+    //todo
 
-//    public void setType(RectangleType type) {this.type = type;}
-//
-//    public void setState(RectangleState state) {
-//        this.state = state;
-//    }
-//todo
+
+
 
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Rectangle rectangle)) return false;
-        return Objects.equals(PointA, rectangle.PointA) && Objects.equals(PointB, rectangle.PointB) && Objects.equals(PointC, rectangle.PointC) && Objects.equals(PointD, rectangle.PointD) && type == rectangle.type && state == rectangle.state;
+        return Objects.equals(pointA, rectangle.pointA) && Objects.equals(pointB, rectangle.pointB) && Objects.equals(pointC, rectangle.pointC) && Objects.equals(pointD, rectangle.pointD) && type == rectangle.type && state == rectangle.state;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(PointA, PointB, PointC, PointD, type, state);
+        return Objects.hash(pointA, pointB, pointC, pointD, type, state);
     }
 
     @Override
     public String toString() {
         return "Rectangle{" +
-                "PointA=" + PointA +
-                ", PointB=" + PointB +
-                ", PointC=" + PointC +
-                ", PointD=" + PointD +
+                "PointA=" + pointA +
+                ", PointB=" + pointB +
+                ", PointC=" + pointC +
+                ", PointD=" + pointD +
                 ", type=" + type +
                 ", state=" + state +
                 '}';
     }
 
-    public double getSide() {
-        return side;
+
+    @Override
+    public void attach() {
+        observer = new RectangleObserverImpl();
     }
 
-    public void setSide(double side) {
-        this.side = side;
+    @Override
+    public void detach() {
+        observer = null;
     }
 
-    public double getWeight() {
-        return weight;
+    @Override
+    public void notifyObservers() {
+        if (observer != null) {
+            observer.update(this);
+        }
     }
 
-    public void setWeight(double weight) {
-        this.weight = weight;
-    }
     //todo refactor object methods
   }

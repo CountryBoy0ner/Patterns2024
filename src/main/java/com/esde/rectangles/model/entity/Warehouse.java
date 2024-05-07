@@ -10,12 +10,9 @@ public class Warehouse {
 
     private Warehouse() {
     }
-
     public static Warehouse getInstance() {
         return instance;
     }
-
-
 
 
     public List<Double> get(Integer key) {

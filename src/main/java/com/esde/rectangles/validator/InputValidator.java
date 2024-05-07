@@ -25,9 +25,6 @@ public class InputValidator {
         double y3;
         double x4;
         double y4;
-
-
-
         try {
             x1 = Double.parseDouble(params[0]);
             y1 = Double.parseDouble(params[1]);

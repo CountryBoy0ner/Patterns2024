@@ -20,7 +20,7 @@ public class RectangleFactoryImpl implements RectangleFactory {
     @Override
     public Rectangle createRectangle(Point a, Point b, Point c, Point d) {
         return new Rectangle(a, b, c, d);
-    } //todo
+    }
 
     
     @Override
@@ -30,18 +30,14 @@ public class RectangleFactoryImpl implements RectangleFactory {
         List<Double[]> rectangleData;
         RectangleValidator rectangleValidator = new RectangleValidator();
         try {
-            rectangleData = TxtParser.parseRectanglesTxt(file); // TODO
+            rectangleData = TxtParser.parseRectanglesTxt(file);
         } catch (InvalidRectangleDataException e){
             logger.error(e);
             throw new RuntimeException(e);
         }
         for (Double[] params : rectangleData) {
             if (rectangleValidator.isValid(params)){
-                Rectangle rectangle = new Rectangle(params); //todo choose this or one that below this
-//                Rectangle rectangle = new Rectangle(new Point(params[0], params[1]),
-//                        new Point(params[2], params[3]),
-//                        new Point(params[4], params[5]),
-//                        new Point(params[6], params[7]));
+                Rectangle rectangle = new Rectangle(params); 
                 rectangles.add(rectangle);
             }
         }

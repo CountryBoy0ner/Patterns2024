@@ -11,6 +11,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Stream;
 
 public class TxtParser {
@@ -23,13 +24,13 @@ public class TxtParser {
         public static List<Double[]> parseRectanglesTxt(String file) throws InvalidRectangleDataException {
             InputValidator inputValidator = new InputValidator();
             List<Double[]> parsedData = new ArrayList<>();
-            try (Stream<String> lines = Files.lines(Paths.get(TxtParser.class.getResource(file).toURI()))) {// todo think to todo
+            try (Stream<String> lines = Files.lines(Paths.get(Objects.requireNonNull(TxtParser.class.getResource(file)).toURI()))) {// todo think to todo
                 lines.forEach(line -> {
                     String[] rectangleData = line.split(DELIMITER);
                     if (inputValidator.hasEightParameters(rectangleData)) {
-                        Double [] cube = inputValidator.validParams(rectangleData);
-                        if (cube!=null){
-                            parsedData.add(cube);
+                        Double [] rectangle = inputValidator.validParams(rectangleData);
+                        if (rectangle !=null){
+                            parsedData.add(rectangle );
                         }
                     } else {
                         logger.warn("invalid format line:" + line);

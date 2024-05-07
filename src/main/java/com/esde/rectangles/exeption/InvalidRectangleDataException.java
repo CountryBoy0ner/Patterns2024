@@ -14,5 +14,4 @@ public class InvalidRectangleDataException extends Exception {
     public InvalidRectangleDataException(Throwable cause){
         super(cause);
     }
-    // todo
 }
