@@ -38,11 +38,11 @@ public class Point {
     }
 @Override
     public String toString() {
-        return "Point{" +
+        return "{" +
                 "x=" + x +
                 ", y=" + y +
                 '}';
-    }
+    } //TODO think to add "Point"
 
     @Override
     public boolean equals(Object o) {

@@ -4,11 +4,11 @@ import com.esde.rectangles.model.Shape;
 import com.esde.rectangles.observer.Observable;
 import com.esde.rectangles.observer.RectangleObserver;
 import com.esde.rectangles.observer.impl.RectangleObserverImpl;
+import com.esde.rectangles.util.IdGenerator;
 
 import java.util.Objects;
 
 public class Rectangle extends Shape implements Observable {
-
 
     private Point pointA;
     private Point pointB;
@@ -37,6 +37,14 @@ public class Rectangle extends Shape implements Observable {
         this.pointB = new Point(param[2], param[3]);
         this.pointC = new Point(param[4], param[5]);
         this.pointD = new Point(param[6], param[7]);
+        this.type = RectangleType.type(this);
+        this.state =RectangleState.state(this);
+    }
+    public Rectangle(Double x0 ,Double y0,Double x1 ,Double y1,Double x2 ,Double y2,Double x3 ,Double y3) {
+        this.pointA = new Point(x0, y0);
+        this.pointB = new Point(x1, y1);
+        this.pointC = new Point(x2, y3);
+        this.pointD = new Point(x3, y3);
         this.type = RectangleType.type(this);
         this.state =RectangleState.state(this);
     }
@@ -84,10 +92,6 @@ public class Rectangle extends Shape implements Observable {
         notifyObservers();
     }
     //todo
-
-
-
-
 
     @Override
     public boolean equals(Object o) {

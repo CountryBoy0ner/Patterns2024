@@ -2,7 +2,7 @@ package com.esde.rectangles.observer.impl;
 
 import com.esde.rectangles.model.entity.Rectangle;
 import com.esde.rectangles.observer.RectangleObserver;
-import com.esde.rectangles.model.entity.Warehouse;
+import com.esde.rectangles.model.Warehouse;
 import com.esde.rectangles.service.RectangleService;
 import com.esde.rectangles.service.impl.RectangleServiceImpl;
 
@@ -18,8 +18,6 @@ public class RectangleObserverImpl implements RectangleObserver {
         RectangleService service = new RectangleServiceImpl();
         double area = service.area(rectangle);
         double volume = service.perimeter(rectangle);
-        //RectangleState state = service.State(rectangle);
-        //RectangleType type = service.type(rectangle);
 
         int key = rectangle.getId();
         Warehouse warehouse = Warehouse.getInstance();

@@ -5,16 +5,18 @@ import com.esde.rectangles.model.entity.RectangleState;
 import com.esde.rectangles.service.PointService;
 import com.esde.rectangles.service.RectangleService;
 
+import java.util.Arrays;
+
 public class RectangleServiceImpl implements RectangleService{
+
 
     @Override
     public double perimeter(Rectangle rectangle) {
         double perimeter = -1;
         if (RectangleState.VALID == RectangleState.state(rectangle)){
             PointService service = new PointServiceImpl();
-            double sideAB = service.calculateDistance(rectangle.getPointA(), rectangle.getPointB());
-            double sideBC = service.calculateDistance(rectangle.getPointB(), rectangle.getPointC());
-            perimeter = (sideAB + sideBC) * 2;
+            double[] sides = service.calculateSides(rectangle);
+            perimeter = (sides[0] + sides[1] + sides[2]+ sides[3]);
         }
         return perimeter;
     }

@@ -14,13 +14,13 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Stream;
 
+import static com.esde.rectangles.constant.RectangleConstant.DELIMITER;
+
 public class TxtParser {
 
         private static final Logger logger = LogManager.getLogger();
-        private static final String DELIMITER = ",";
         public TxtParser(){
         }
-
         public static List<Double[]> parseRectanglesTxt(String file) throws InvalidRectangleDataException {
             InputValidator inputValidator = new InputValidator();
             List<Double[]> parsedData = new ArrayList<>();

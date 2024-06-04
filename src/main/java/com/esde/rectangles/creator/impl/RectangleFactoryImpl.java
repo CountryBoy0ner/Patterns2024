@@ -22,22 +22,21 @@ public class RectangleFactoryImpl implements RectangleFactory {
         return new Rectangle(a, b, c, d);
     }
 
-    
+
     @Override
     public List<Rectangle> createRectangles(String file) {
-
         List<Rectangle> rectangles = new ArrayList<>();
         List<Double[]> rectangleData;
         RectangleValidator rectangleValidator = new RectangleValidator();
         try {
             rectangleData = TxtParser.parseRectanglesTxt(file);
-        } catch (InvalidRectangleDataException e){
+        } catch (InvalidRectangleDataException e) {
             logger.error(e);
             throw new RuntimeException(e);
         }
         for (Double[] params : rectangleData) {
-            if (rectangleValidator.isValid(params)){
-                Rectangle rectangle = new Rectangle(params); 
+            if (rectangleValidator.isValid(params)) {
+                Rectangle rectangle = new Rectangle(params);
                 rectangles.add(rectangle);
             }
         }

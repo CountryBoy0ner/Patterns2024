@@ -1,6 +1,7 @@
 package com.esde.rectangles.service.impl;
 
 import com.esde.rectangles.model.entity.Point;
+import com.esde.rectangles.model.entity.Rectangle;
 import com.esde.rectangles.service.PointService;
 
 public class PointServiceImpl implements PointService {
@@ -23,5 +24,21 @@ public class PointServiceImpl implements PointService {
         double magnitude1 = Math.sqrt(dx1 * dx1 + dy1 * dy1);
         double magnitude2 = Math.sqrt(dx2 * dx2 + dy2 * dy2);
         return Math.toDegrees(Math.acos(dotProduct / (magnitude1 * magnitude2)));
+    }
+
+    @Override
+    public boolean arePointsCollinear(Point p1, Point p2, Point p3) {
+        double area = 0.5 * ((p2.getX() - p1.getX()) * (p3.getY() - p1.getY()) - (p3.getX() - p1.getX()) * (p2.getY() - p1.getY()));
+        return Math.abs(area) < 1e-10; //EPSILON
+    }
+
+    @Override
+    public double[] calculateSides(Rectangle rectangle) {
+        PointService service = new PointServiceImpl();
+        double sideAB = service.calculateDistance(rectangle.getPointA(), rectangle.getPointB());
+        double sideBC = service.calculateDistance(rectangle.getPointB(), rectangle.getPointC());
+        double sideCD = service.calculateDistance(rectangle.getPointC(), rectangle.getPointD());
+        double sideDA = service.calculateDistance(rectangle.getPointD(), rectangle.getPointA());
+        return new double[] {sideAB, sideBC, sideCD, sideDA};
     }
 }

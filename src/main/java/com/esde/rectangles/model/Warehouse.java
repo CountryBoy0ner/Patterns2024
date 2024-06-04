@@ -1,4 +1,4 @@
-package com.esde.rectangles.model.entity;
+package com.esde.rectangles.model;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -13,7 +13,7 @@ public class RectangleValidator {
     public boolean isValid(Double[] params){
         boolean valid = true;
         RectangleServiceImpl service = new RectangleServiceImpl();
-        Rectangle rectangle = new Rectangle(params);// todo: watch entity/Rectangle
+        Rectangle rectangle = new Rectangle(params);//
         RectangleState currentState = RectangleState.state(rectangle);
         if (currentState == RectangleState.INVALID) {
             valid = false;
